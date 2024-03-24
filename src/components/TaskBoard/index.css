@@ -1,0 +1,56 @@
+.main-container {
+  background-color: rgb(212, 180, 243);
+  min-height: 100vh;
+  padding: 10px;
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-container {
+  border-style: solid;
+  border-color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+.filter-container {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 567px) {
+  .filter-container {
+    flex-direction: column;
+  }
+}
+
+.filter-heading {
+  font-size: 10px;
+  align-self: flex-start;
+}
+.filter-items-container {
+  display: flex;
+  align-items: center;
+}
+.date-filter-container {
+  background-color: white;
+
+  display: flex;
+  align-items: center;
+  height: 30px;
+  margin: 5px;
+}
+.input-element {
+  height: 20px;
+  width: 100px;
+}
+.date-input {
+  border: none;
+}
+.date-margin {
+  margin: 10px;
+}
+.md-device-date {
+  display: none;
+}
