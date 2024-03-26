@@ -29,6 +29,12 @@
   font-size: 10px;
   align-self: flex-start;
 }
+
+@media screen and (min-width: 567px) {
+  .filter-heading {
+    font-size: 40px;
+  }
+}
 .filter-items-container {
   display: flex;
   align-items: center;
@@ -45,12 +51,46 @@
   height: 20px;
   width: 100px;
 }
+@media screen and (min-width: 567px) {
+  .input-element {
+    height: 30px;
+    width: 150px;
+    margin: 10px;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+  }
+  .date-filter-container {
+    width: 250px;
+  }
+}
 .date-input {
   border: none;
 }
+
 .date-margin {
   margin: 10px;
 }
-.md-device-date {
-  display: none;
+@media screen and (max-width: 567px) {
+  .md-device-date {
+    display: none;
+  }
+}
+.add-button {
+  background-color: rgb(58, 76, 195);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+.task-items-main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 567px) {
+  .task-items-main-container {
+    flex-direction: column;
+  }
 }
