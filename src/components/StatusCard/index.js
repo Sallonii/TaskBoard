@@ -1,6 +1,7 @@
 import './index.css'
 
 import TaskItem from '../TaskItem'
+import AddTask from '../AddTask'
 
 const StatusCard = props => {
   const {statusType, newTaskList} = props
@@ -10,11 +11,11 @@ const StatusCard = props => {
       eachTask => eachTask.status === 'Pending',
     )
     return (
-      <>
+      <div>
         {pendingTaskList.map(eachTask => (
           <TaskItem eachTaskDetails={eachTask} key={eachTask.id} />
         ))}
-      </>
+      </div>
     )
   }
 
@@ -90,7 +91,7 @@ const StatusCard = props => {
   return (
     <div className="status-card-container">
       <h1 className={`status-heading ${statusType}`}>{statusType}</h1>
-      {getTaskList()}
+      <div className="status-task-container">{getTaskList()}</div>
     </div>
   )
 }

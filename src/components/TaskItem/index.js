@@ -1,7 +1,9 @@
+import {FaEdit} from 'react-icons/fa'
+
 import './index.css'
 
 const TaskItem = props => {
-  const {eachTaskDetails} = props
+  const {eachTaskDetails, edit} = props
   const {
     id,
     title,
@@ -11,15 +13,26 @@ const TaskItem = props => {
     priority,
     status,
   } = eachTaskDetails
+
+  const onClickingEditButton = () => {
+    edit(id)
+  }
+
   return (
-    <div>
-      <h1>{status}</h1>
-      <h1>{status}</h1>
-      <h1>{status}</h1>
-      <h1>{status}</h1>
-      <h1>{status}</h1>
-      <h1>{status}</h1>
-      <h1>{status}</h1>
+    <div className="task-card">
+      <div className="task-header">
+        <h1 className="task-heading">{title}</h1>
+        <p className="priority">{priority}</p>
+      </div>
+      <hr />
+      <p className="task-description">{description}</p>
+      <div className="task-header">
+        <p>{`@${assignee}`}</p>
+        <FaEdit onClick={onClickingEditButton} />
+      </div>
+      <div type="button" className="status">
+        {status}
+      </div>
     </div>
   )
 }

@@ -7,18 +7,26 @@ import StatusCard from '../StatusCard'
 
 import './index.css'
 
-const priority = [
+const priorityConstants = [
   {
     id: 'priority0',
     name: 'P0',
+    value: 'P0',
   },
   {
     id: 'priority1',
     name: 'P1',
+    value: 'P1',
   },
   {
     id: 'priority2',
     name: 'P2',
+    value: 'P2',
+  },
+  {
+    id: 'all',
+    name: 'All',
+    value: '',
   },
 ]
 
@@ -44,20 +52,36 @@ const statusTypeList = [
     status: 'Deffered',
   },
 ]
+
 class TaskBoard extends Component {
-  state = {newTaskList: []}
+  state = {newTaskList: [], assignee: '', priority: ''}
+
+  onChangingAsssigneeName = event => {
+    const {newTaskList, assignee} = this.state
+    this.setState({assignee: event.target.value})
+  }
+
+  onChangingPriority = event => {
+    this.setState({priority: event.target.value})
+  }
 
   renderAssigneeName = () => (
-    <input placeholder="Assignee Name" className="input-element" />
+    <input
+      placeholder="Assignee Name"
+      className="input-element"
+      onChange={this.onChangingAsssigneeName}
+    />
   )
 
   renderPriorityFilter = () => (
-    <select className="input-element">
+    <select className="input-element" onChange={this.onChangingPriority}>
       <option disabled selected hidden>
         Priority
       </option>
-      {priority.map(eachPriority => (
-        <option key={eachPriority.id}>{eachPriority.name}</option>
+      {priorityConstants.map(eachPriority => (
+        <option key={eachPriority.id} value={eachPriority.value}>
+          {eachPriority.name}
+        </option>
       ))}
     </select>
   )
@@ -93,7 +117,15 @@ class TaskBoard extends Component {
   }
 
   render() {
-    const {newTaskList} = this.state
+    const {newTaskList, assignee, priority} = this.state
+
+    const filteredAssigneeList = newTaskList.filter(eachItem =>
+      eachItem.assignee.toLowerCase().includes(assignee.toLowerCase()),
+    )
+
+    const filteredPriorityList = filteredAssigneeList.filter(eachItem =>
+      eachItem.priority.toLowerCase().includes(priority.toLowerCase()),
+    )
 
     return (
       <div className="main-container">
@@ -121,7 +153,7 @@ class TaskBoard extends Component {
               <StatusCard
                 statusType={eachTask.status}
                 key={eachTask.id}
-                newTaskList={newTaskList}
+                newTaskList={filteredPriorityList}
               />
             ))}
           </div>
