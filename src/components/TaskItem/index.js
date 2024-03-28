@@ -1,4 +1,4 @@
-import {FaEdit} from 'react-icons/fa'
+import EditTask from '../EditTask'
 
 import './index.css'
 
@@ -28,7 +28,7 @@ const TaskItem = props => {
       <p className="task-description">{description}</p>
       <div className="task-header">
         <p>{`@${assignee}`}</p>
-        <FaEdit onClick={onClickingEditButton} />
+        <EditTask eachTaskDetails={eachTaskDetails} />
       </div>
       <div type="button" className="status">
         {status}

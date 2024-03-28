@@ -1,0 +1,60 @@
+.trigger-button {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Roboto';
+  color: white;
+  padding: 8px 15px 8px 15px;
+  margin: 8px;
+  background-color: #7c69e9;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+.popup-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20vh;
+  height: 10vh;
+}
+.popup {
+  border-style: solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.popup-heading {
+  font-size: 30px;
+}
+@media screen and (max-width: 567px) {
+  .popup-heading {
+    font-size: 20px;
+  }
+}
+.label-input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  margin: 10px;
+}
+.priority-and-status-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  margin: 10px;
+}
+
+@media screen and (max-width: 567px) {
+  .label-input-container {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .priority-and-status-container {
+    width: 100%;
+  }
+}
