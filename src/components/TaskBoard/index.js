@@ -155,7 +155,7 @@ class TaskBoard extends Component {
       <div className="main-container">
         <div className="header-container">
           <h1>Task Board</h1>
-          <FaRegUserCircle />
+          <FaRegUserCircle className="user-profile" />
         </div>
         <div className="card-container">
           <div className="filter-container">
