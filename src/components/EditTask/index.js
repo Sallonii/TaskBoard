@@ -42,6 +42,21 @@ class EditTask extends Component {
   }
 
   edit = close => {
+    const {updateTask, eachTaskDetails} = this.props
+    const {title, description, status, priority, assignee, team} = this.state
+    const {id} = eachTaskDetails
+
+    const editedTask = {
+      title,
+      description,
+      status,
+      priority,
+      assignee,
+      team,
+      id,
+    }
+
+    updateTask(editedTask)
     close()
   }
 
@@ -51,6 +66,7 @@ class EditTask extends Component {
 
   renderForm = (taskDetails, close) => {
     const {title, description, status, priority, assignee, team} = taskDetails
+
     return (
       <div className="popup">
         <h1 className="popup-heading">CREATE A TASK</h1>
@@ -95,11 +111,7 @@ class EditTask extends Component {
         <div className="priority-and-status-container">
           <div>
             <label htmlFor="priority">Priority</label>
-            <select
-              id="priority"
-              onChange={this.onChangingPriority}
-              value={priority}
-            >
+            <select id="priority" onChange={this.onChangingPriority}>
               <option>P0</option>
               <option>P1</option>
               <option>P2</option>
@@ -107,7 +119,7 @@ class EditTask extends Component {
           </div>
           <div>
             <label htmlFor="status">Status</label>
-            <select id="status" onChange={this.onChangingStatus} value={status}>
+            <select id="status" onChange={this.onChangingStatus}>
               <option>Pending</option>
               <option>Completed</option>
               <option>In Progress</option>
@@ -123,7 +135,7 @@ class EditTask extends Component {
             onClick={() => this.edit(close)}
           >
             Edit
-          </button>
+          </button>{' '}
           <button
             type="button"
             className="trigger-button"

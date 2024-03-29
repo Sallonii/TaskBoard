@@ -110,6 +110,30 @@ class TaskBoard extends Component {
     </div>
   )
 
+  taskUpdated = editedTask => {
+    const {newTaskList} = this.state
+    const updatedTaskList = newTaskList.map(task => {
+      if (task.id === editedTask.id) {
+        return editedTask
+      }
+      return task
+    })
+
+    this.setState({newTaskList: updatedTaskList})
+  }
+
+  completedTaskUpdate = editedTask => {
+    const {newTaskList} = this.state
+    const updatedTaskList = newTaskList.map(task => {
+      if (task.id === editedTask.id) {
+        return [...task, ...editedTask]
+      }
+      return task
+    })
+
+    this.setState({newTaskList: updatedTaskList})
+  }
+
   updateTaskList = newList => {
     this.setState(prevState => ({
       newTaskList: [...prevState.newTaskList, newList],
@@ -154,6 +178,8 @@ class TaskBoard extends Component {
                 statusType={eachTask.status}
                 key={eachTask.id}
                 newTaskList={filteredPriorityList}
+                taskUpdated={this.taskUpdated}
+                completedTaskUpdate={this.completedTaskUpdate}
               />
             ))}
           </div>

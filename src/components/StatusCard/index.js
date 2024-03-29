@@ -1,10 +1,13 @@
 import './index.css'
 
 import TaskItem from '../TaskItem'
-import AddTask from '../AddTask'
 
 const StatusCard = props => {
-  const {statusType, newTaskList} = props
+  const {statusType, newTaskList, taskUpdated} = props
+
+  const updatedTask = editTask => {
+    taskUpdated(editTask)
+  }
 
   const renderPendingTask = () => {
     const pendingTaskList = newTaskList.filter(
@@ -13,7 +16,11 @@ const StatusCard = props => {
     return (
       <div>
         {pendingTaskList.map(eachTask => (
-          <TaskItem eachTaskDetails={eachTask} key={eachTask.id} />
+          <TaskItem
+            eachTaskDetails={eachTask}
+            key={eachTask.id}
+            updatedTask={updatedTask}
+          />
         ))}
       </div>
     )
