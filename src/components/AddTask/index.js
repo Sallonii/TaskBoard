@@ -55,6 +55,7 @@ class AddTask extends Component {
       priority,
       assignee,
       team,
+      date: new Date(),
     }
 
     updateTaskList({...newTaskList, ...addTask})

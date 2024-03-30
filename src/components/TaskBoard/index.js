@@ -54,15 +54,28 @@ const statusTypeList = [
 ]
 
 class TaskBoard extends Component {
-  state = {newTaskList: [], assignee: '', priority: ''}
+  state = {
+    newTaskList: [],
+    assignee: '',
+    priority: '',
+    startDate: '',
+    endDate: '',
+  }
 
   onChangingAsssigneeName = event => {
-    const {newTaskList, assignee} = this.state
     this.setState({assignee: event.target.value})
   }
 
   onChangingPriority = event => {
     this.setState({priority: event.target.value})
+  }
+
+  handleStartDateChange = event => {
+    this.setState({startDate: event.target.value})
+  }
+
+  handleEndDateChange = event => {
+    this.setState({endDate: event.target.value})
   }
 
   renderAssigneeName = () => (
@@ -75,7 +88,7 @@ class TaskBoard extends Component {
 
   renderPriorityFilter = () => (
     <select className="input-element" onChange={this.onChangingPriority}>
-      <option disabled selected hidden>
+      <option defaultValue hidden>
         Priority
       </option>
       {priorityConstants.map(eachPriority => (
@@ -122,18 +135,6 @@ class TaskBoard extends Component {
     this.setState({newTaskList: updatedTaskList})
   }
 
-  completedTaskUpdate = editedTask => {
-    const {newTaskList} = this.state
-    const updatedTaskList = newTaskList.map(task => {
-      if (task.id === editedTask.id) {
-        return [...task, ...editedTask]
-      }
-      return task
-    })
-
-    this.setState({newTaskList: updatedTaskList})
-  }
-
   updateTaskList = newList => {
     this.setState(prevState => ({
       newTaskList: [...prevState.newTaskList, newList],
@@ -141,7 +142,7 @@ class TaskBoard extends Component {
   }
 
   render() {
-    const {newTaskList, assignee, priority} = this.state
+    const {newTaskList, assignee, priority, startDate, endDate} = this.state
 
     const filteredAssigneeList = newTaskList.filter(eachItem =>
       eachItem.assignee.toLowerCase().includes(assignee.toLowerCase()),
@@ -150,6 +151,17 @@ class TaskBoard extends Component {
     const filteredPriorityList = filteredAssigneeList.filter(eachItem =>
       eachItem.priority.toLowerCase().includes(priority.toLowerCase()),
     )
+
+    const filteredDateList = filteredPriorityList.filter(eachDate => {
+      const taskDate = new Date(eachDate.date) // Assuming eachDate.date is a Date object
+      const startDateObj = new Date(startDate)
+      const endDateObj = new Date(endDate)
+
+      return taskDate >= startDateObj && taskDate <= endDateObj
+    })
+
+    // Sort tasks by date
+    filteredDateList.sort((a, b) => new Date(a.date) - new Date(b.date))
 
     return (
       <div className="main-container">
@@ -168,7 +180,7 @@ class TaskBoard extends Component {
             <div className="add-task-container">
               <AddTask
                 updateTaskList={this.updateTaskList}
-                newTaskList={this.newTaskList}
+                newTaskList={newTaskList}
               />
             </div>
           </div>
@@ -179,7 +191,6 @@ class TaskBoard extends Component {
                 key={eachTask.id}
                 newTaskList={filteredPriorityList}
                 taskUpdated={this.taskUpdated}
-                completedTaskUpdate={this.completedTaskUpdate}
               />
             ))}
           </div>

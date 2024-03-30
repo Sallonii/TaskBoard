@@ -30,6 +30,7 @@ class TaskItem extends Component {
       team,
       priority,
       status,
+      date,
     } = eachTaskDetails
     return (
       <div className="task-card">

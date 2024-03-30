@@ -33,7 +33,11 @@ const StatusCard = props => {
     return (
       <>
         {inProgressTaskList.map(eachTask => (
-          <TaskItem eachTaskDetails={eachTask} key={eachTask.id} />
+          <TaskItem
+            eachTaskDetails={eachTask}
+            key={eachTask.id}
+            updatedTask={updatedTask}
+          />
         ))}
       </>
     )
@@ -46,7 +50,11 @@ const StatusCard = props => {
     return (
       <>
         {completedTaskList.map(eachTask => (
-          <TaskItem eachTaskDetails={eachTask} key={eachTask.id} />
+          <TaskItem
+            eachTaskDetails={eachTask}
+            key={eachTask.id}
+            updatedTask={updatedTask}
+          />
         ))}
       </>
     )
@@ -59,7 +67,11 @@ const StatusCard = props => {
     return (
       <>
         {DeployedTaskList.map(eachTask => (
-          <TaskItem eachTaskDetails={eachTask} key={eachTask.id} />
+          <TaskItem
+            eachTaskDetails={eachTask}
+            key={eachTask.id}
+            updatedTask={updatedTask}
+          />
         ))}
       </>
     )
@@ -72,7 +84,11 @@ const StatusCard = props => {
     return (
       <>
         {defferedTaskList.map(eachTask => (
-          <TaskItem eachTaskDetails={eachTask} key={eachTask.id} />
+          <TaskItem
+            eachTaskDetails={eachTask}
+            key={eachTask.id}
+            updatedTask={updatedTask}
+          />
         ))}
       </>
     )
