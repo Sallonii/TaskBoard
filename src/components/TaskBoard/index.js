@@ -1,12 +1,10 @@
-import {Component} from 'react'
+import {Component} from 'react' // Import Component from React library
+import {FaRegUserCircle} from 'react-icons/fa' // Import FaRegUserCircle icon from react-icons/fa
+import AddTask from '../AddTask' // Import AddTask component
+import StatusCard from '../StatusCard' // Import StatusCard component
+import './index.css' // Import CSS file for styling
 
-import {FaRegUserCircle} from 'react-icons/fa'
-
-import AddTask from '../AddTask'
-import StatusCard from '../StatusCard'
-
-import './index.css'
-
+// Constants for priority filtering
 const priorityConstants = [
   {
     id: 'priority0',
@@ -30,6 +28,7 @@ const priorityConstants = [
   },
 ]
 
+// List of status types
 const statusTypeList = [
   {
     id: 0,
@@ -55,13 +54,14 @@ const statusTypeList = [
 
 class TaskBoard extends Component {
   state = {
-    newTaskList: [],
-    assignee: '',
-    priority: '',
-    startDate: '',
-    endDate: '',
+    newTaskList: [], // Array to store new tasks
+    assignee: '', // Assignee filter
+    priority: '', // Priority filter
+    startDate: '', // Start date filter
+    endDate: '', // End date filter
   }
 
+  // Event handlers for input changes
   onChangingAssigneeName = event => {
     this.setState({assignee: event.target.value})
   }
@@ -78,6 +78,7 @@ class TaskBoard extends Component {
     this.setState({endDate: event.target.value})
   }
 
+  // Render input elements for assignee name, priority filter, and date filter
   renderAssigneeName = () => (
     <input
       placeholder="Assignee Name"
@@ -123,6 +124,7 @@ class TaskBoard extends Component {
     </div>
   )
 
+  // Method to update task details
   taskUpdated = editedTask => {
     const {newTaskList} = this.state
     const updatedTaskList = newTaskList.map(task => {
@@ -135,12 +137,14 @@ class TaskBoard extends Component {
     this.setState({newTaskList: updatedTaskList})
   }
 
+  // Method to add task to the task list
   updateTaskList = newList => {
     this.setState(prevState => ({
       newTaskList: [...prevState.newTaskList, newList],
     }))
   }
 
+  // Method to delete task from the task list
   deleteTask = id => {
     const {newTaskList} = this.state
 
@@ -152,6 +156,7 @@ class TaskBoard extends Component {
   render() {
     const {newTaskList, assignee, priority, startDate, endDate} = this.state
 
+    // Filter tasks based on assignee, priority, and date
     const filteredAssigneeList = newTaskList.filter(eachItem =>
       eachItem.assignee.toLowerCase().includes(assignee.toLowerCase()),
     )
@@ -161,7 +166,7 @@ class TaskBoard extends Component {
     )
 
     const filteredDateList = filteredPriorityList.filter(eachDate => {
-      const taskDate = new Date(eachDate.date) // Assuming eachDate.date is a Date object
+      const taskDate = new Date(eachDate.date)
       const startDateObj = new Date(startDate)
       const endDateObj = new Date(endDate)
 

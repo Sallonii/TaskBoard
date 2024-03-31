@@ -1,13 +1,12 @@
 import {Component} from 'react'
 import Popup from 'reactjs-popup'
-
 import {FaEdit} from 'react-icons/fa'
 
-import 'reactjs-popup/dist/index.css'
-
-import './index.css'
+import 'reactjs-popup/dist/index.css' // Import CSS for Popup
+import './index.css' // Import local CSS file
 
 class EditTask extends Component {
+  // State to manage input fields and error display
   state = {
     title: '',
     status: 'Pending',
@@ -15,9 +14,11 @@ class EditTask extends Component {
     assignee: '',
     team: '',
     description: '',
-    showError: false,
+    showError: false, // Flag to track if an error should be displayed
   }
 
+  // Event handlers for input changes
+  // Update state with the new values from input fields
   onChangingTitle = event => {
     this.setState({title: event.target.value})
   }
@@ -42,44 +43,48 @@ class EditTask extends Component {
     this.setState({team: event.target.value})
   }
 
+  // Method to display error message
   showEditError = () => {
     this.setState({showError: true})
   }
 
+  // Method to handle edit action
   edit = close => {
     const {updateTask, eachTaskDetails} = this.props
     const {title, description, status, priority, assignee, team} = this.state
     const {id} = eachTaskDetails
 
-    if (title === '' || description === '' || assignee === '' || team === '') {
-      this.showEditError()
-    } else {
-      const editedTask = {
-        title,
-        description,
-        status,
-        priority,
-        assignee,
-        team,
-        id,
-        date: new Date(),
-      }
-      updateTask(editedTask)
-      this.setState({showError: false})
-      close()
+    // Create edited task object with updated values
+    const editedTask = {
+      id,
+      title,
+      description,
+      status,
+      priority,
+      assignee,
+      team,
+      date: new Date(),
     }
+
+    // Call updateTask function to update the task
+    updateTask(editedTask)
+
+    // Close the popup after editing
+    close()
   }
 
+  // Method to handle cancel action
   cancel = close => {
     close()
   }
 
+  // Render the edit form based on task details and status
   renderForm = (taskDetails, close) => {
     const {title, description, assignee, team, showError} = taskDetails
 
     return (
       <div className="popup">
-        <h1 className="popup-heading">CREATE A TASK</h1>
+        <h1 className="popup-heading">EDIT TASK</h1>
         <div className="label-input-container">
           <label htmlFor="title" className="label">
             Title:
@@ -134,12 +139,13 @@ class EditTask extends Component {
               <option>Completed</option>
               <option>In Progress</option>
               <option>Deployed</option>
-              <option>Deffered</option>
+              <option>Deferred</option>
             </select>
           </div>
         </div>
         {showError && <p className="error-message">Input Fields are empty!</p>}
         <div>
+          {/* Edit and Cancel buttons */}
           <button
             type="button"
             className="trigger-button"
@@ -159,9 +165,11 @@ class EditTask extends Component {
     )
   }
 
+  // Render the edit form with appropriate task details
   renderEditForm = close => {
     const {eachTaskDetails} = this.props
 
+    // Render form based on task status
     switch (eachTaskDetails.status) {
       case 'Completed':
         return this.renderForm(eachTaskDetails, close)
@@ -170,9 +178,11 @@ class EditTask extends Component {
     }
   }
 
+  // Render the component
   render() {
     return (
       <div className="edit-task-popup-container">
+        {/* Popup for editing task */}
         <Popup modal trigger={<FaEdit className="edit-btn" />}>
           {close => <>{this.renderEditForm(close)}</>}
         </Popup>

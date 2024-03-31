@@ -1,24 +1,21 @@
-import {Component} from 'react'
-
-import {v4} from 'uuid'
-
-import Popup from 'reactjs-popup'
-
-import 'reactjs-popup/dist/index.css'
-
-import './index.css'
+import {Component} from 'react' // Import Component from React library
+import {v4} from 'uuid' // Import v4 method from uuid library
+import Popup from 'reactjs-popup' // Import Popup component from reactjs-popup library
+import 'reactjs-popup/dist/index.css' // Import CSS for Popup component
+import './index.css' // Import custom CSS styles
 
 class AddTask extends Component {
   state = {
-    title: '',
-    status: 'Pending',
-    priority: 'P0',
-    assignee: '',
-    team: '',
-    description: '',
-    showError: false,
+    title: '', // State for task title
+    status: 'Pending', // Default status for new task
+    priority: 'P0', // Default priority for new task
+    assignee: '', // State for task assignee
+    team: '', // State for task team
+    description: '', // State for task description
+    showError: false, // State to control error message display
   }
 
+  // Event handlers for input changes
   onChangingTitle = event => {
     this.setState({title: event.target.value})
   }
@@ -43,31 +40,35 @@ class AddTask extends Component {
     this.setState({team: event.target.value})
   }
 
+  // Method to show error message
   showAddError = () => {
     this.setState({showError: true})
   }
 
+  // Method to add new task
   add = close => {
     const {title, description, status, priority, assignee, team} = this.state
-
     const {updateTaskList, newTaskList} = this.props
 
+    // Check if all required fields are filled
     if (title === '' || description === '' || assignee === '' || team === '') {
-      this.showAddError()
+      this.showAddError() // Show error message if any field is empty
     } else {
       const addTask = {
-        id: v4(),
+        // Create new task object
+        id: v4(), // Generate unique ID for the task
         title,
         description,
         status,
         priority,
         assignee,
         team,
-        date: new Date(),
+        date: new Date(), // Set current date for the task
       }
 
-      updateTaskList({...newTaskList, ...addTask})
+      updateTaskList({...newTaskList, ...addTask}) // Update task list with new task
       this.setState({
+        // Reset input fields and error state
         title: '',
         description: '',
         status: 'Completed',
@@ -76,10 +77,11 @@ class AddTask extends Component {
         team: '',
         showError: false,
       })
-      close()
+      close() // Close the Popup component
     }
   }
 
+  // Render form elements for adding a new task
   renderTaskElements = close => {
     const {
       title,
@@ -155,12 +157,13 @@ class AddTask extends Component {
             </select>
           </div>
         </div>
-        {showError && <p className="error-message">Complete inputs!!</p>}
+        {showError && <p className="error-message">Complete inputs!!</p>}{' '}
+        {/* Error message for incomplete inputs */}
         <div>
           <button
             type="button"
             className="trigger-button"
-            onClick={() => this.add(close)}
+            onClick={() => this.add(close)} // Call add method on button click
           >
             Add
           </button>
@@ -181,10 +184,11 @@ class AddTask extends Component {
           }
         >
           {close => <>{this.renderTaskElements(close)}</>}
+          {/* Render form elements */}
         </Popup>
       </div>
     )
   }
 }
 
-export default AddTask
+export default AddTask // Export AddTask component
