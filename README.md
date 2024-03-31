@@ -1,4 +1,4 @@
-Intern Assignments
+Assignments
 
 Create a Task Tracker web app for a team in an organization using React. 
 A task will have following properties : 
@@ -28,27 +28,3 @@ Follow good coding practices and use comments wherever necessary
 List down any assumptions you make while designing
 Perform error handling 
 If you are developing both projects, share code by uploading in public GIT repository
-
-
-
-
-Screen Mockup
-
-
-
-
-
-
-
-
-Mobile Screen Mockup.
-Bonus Points 
-If you know ReactNative, flaunt your app development skills by make Android | iOS app 
-
-
-
-
-
-
-
-
