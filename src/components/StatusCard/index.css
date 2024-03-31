@@ -10,7 +10,7 @@
 .Deployed {
   background-color: rgb(12, 12, 88);
 }
-.Deffered {
+.Deferred {
   background-color: rgb(211, 126, 140);
 }
 .status-card-container {
@@ -24,6 +24,11 @@
   color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+.status-heading:hover {
+  background-color: white;
+  color: rgb(14, 235, 255);
 }
 .status-task-container {
   height: 60vh;

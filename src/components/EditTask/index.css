@@ -19,7 +19,12 @@
   height: 10vh;
 }
 .popup {
-  border-style: solid;
+  background-image: linear-gradient(
+    rgba(127, 67, 255, 0.807),
+    rgb(62, 211, 248),
+    rgba(58, 222, 58, 0.821),
+    rgba(212, 212, 89, 0.779)
+  );
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,6 +32,7 @@
 }
 .popup-heading {
   font-size: 30px;
+  color: white;
 }
 @media screen and (max-width: 567px) {
   .popup-heading {

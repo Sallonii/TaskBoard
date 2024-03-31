@@ -56,7 +56,7 @@
 
 @media screen and (min-width: 567px) {
   .filter-heading {
-    font-size: 40px;
+    font-size: 25px;
   }
 }
 .filter-items-container {
@@ -76,6 +76,7 @@
   height: 20px;
   width: 100px;
   background-color: rgb(191, 241, 241);
+  font-weight: 600;
 }
 @media screen and (min-width: 567px) {
   .input-element {

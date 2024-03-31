@@ -15,6 +15,7 @@ class EditTask extends Component {
     assignee: '',
     team: '',
     description: '',
+    showError: false,
   }
 
   onChangingTitle = event => {
@@ -41,23 +42,32 @@ class EditTask extends Component {
     this.setState({team: event.target.value})
   }
 
+  showEditError = () => {
+    this.setState({showError: true})
+  }
+
   edit = close => {
     const {updateTask, eachTaskDetails} = this.props
     const {title, description, status, priority, assignee, team} = this.state
     const {id} = eachTaskDetails
 
-    const editedTask = {
-      title,
-      description,
-      status,
-      priority,
-      assignee,
-      team,
-      id,
+    if (title === '' || description === '' || assignee === '' || team === '') {
+      this.showEditError()
+    } else {
+      const editedTask = {
+        title,
+        description,
+        status,
+        priority,
+        assignee,
+        team,
+        id,
+        date: new Date(),
+      }
+      updateTask(editedTask)
+      this.setState({showError: false})
+      close()
     }
-
-    updateTask(editedTask)
-    close()
   }
 
   cancel = close => {
@@ -65,7 +75,7 @@ class EditTask extends Component {
   }
 
   renderForm = (taskDetails, close) => {
-    const {title, description, status, priority, assignee, team} = taskDetails
+    const {title, description, assignee, team, showError} = taskDetails
 
     return (
       <div className="popup">
@@ -128,6 +138,7 @@ class EditTask extends Component {
             </select>
           </div>
         </div>
+        {showError && <p className="error-message">Input Fields are empty!</p>}
         <div>
           <button
             type="button"
@@ -135,7 +146,7 @@ class EditTask extends Component {
             onClick={() => this.edit(close)}
           >
             Edit
-          </button>{' '}
+          </button>
           <button
             type="button"
             className="trigger-button"

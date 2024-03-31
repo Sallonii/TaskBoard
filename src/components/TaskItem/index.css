@@ -1,10 +1,16 @@
 .task-card {
-  background-color: rgba(195, 193, 193, 0.567);
+  background-color: rgba(255, 255, 255, 0.786);
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 10px;
   padding: 7px;
+  border-radius: 10px;
+}
+
+.task-card:hover {
+  transform: scale(1.05); /* Zoom effect on hover */
+  background-image: linear-gradient(to bottom right, #ffffff, #ff4bba);
 }
 .task-header {
   display: flex;

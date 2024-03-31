@@ -16,6 +16,7 @@ class AddTask extends Component {
     assignee: '',
     team: '',
     description: '',
+    showError: false,
   }
 
   onChangingTitle = event => {
@@ -42,36 +43,53 @@ class AddTask extends Component {
     this.setState({team: event.target.value})
   }
 
+  showAddError = () => {
+    this.setState({showError: true})
+  }
+
   add = close => {
     const {title, description, status, priority, assignee, team} = this.state
 
     const {updateTaskList, newTaskList} = this.props
 
-    const addTask = {
-      id: v4(),
+    if (title === '' || description === '' || assignee === '' || team === '') {
+      this.showAddError()
+    } else {
+      const addTask = {
+        id: v4(),
+        title,
+        description,
+        status,
+        priority,
+        assignee,
+        team,
+        date: new Date(),
+      }
+
+      updateTaskList({...newTaskList, ...addTask})
+      this.setState({
+        title: '',
+        description: '',
+        status: 'Completed',
+        priority: 'P0',
+        assignee: '',
+        team: '',
+        showError: false,
+      })
+      close()
+    }
+  }
+
+  renderTaskElements = close => {
+    const {
       title,
       description,
       status,
       priority,
       assignee,
       team,
-      date: new Date(),
-    }
-
-    updateTaskList({...newTaskList, ...addTask})
-    this.setState({
-      title: '',
-      description: '',
-      status: 'Completed',
-      priority: 'P0',
-      assignee: '',
-      team: '',
-    })
-    close()
-  }
-
-  renderTaskElements = close => {
-    const {title, description, status, priority, assignee, team} = this.state
+      showError,
+    } = this.state
     return (
       <div className="popup">
         <h1 className="popup-heading">CREATE A TASK</h1>
@@ -133,10 +151,11 @@ class AddTask extends Component {
               <option>Completed</option>
               <option>In Progress</option>
               <option>Deployed</option>
-              <option>Deffered</option>
+              <option>Deferred</option>
             </select>
           </div>
         </div>
+        {showError && <p className="error-message">Complete inputs!!</p>}
         <div>
           <button
             type="button"

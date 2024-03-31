@@ -3,10 +3,14 @@ import './index.css'
 import TaskItem from '../TaskItem'
 
 const StatusCard = props => {
-  const {statusType, newTaskList, taskUpdated} = props
+  const {statusType, newTaskList, taskUpdated, deleteTask} = props
 
   const updatedTask = editTask => {
     taskUpdated(editTask)
+  }
+
+  const onDeletingTask = id => {
+    deleteTask(id)
   }
 
   const renderPendingTask = () => {
@@ -20,6 +24,7 @@ const StatusCard = props => {
             eachTaskDetails={eachTask}
             key={eachTask.id}
             updatedTask={updatedTask}
+            onDeletingTask={onDeletingTask}
           />
         ))}
       </div>
@@ -37,6 +42,7 @@ const StatusCard = props => {
             eachTaskDetails={eachTask}
             key={eachTask.id}
             updatedTask={updatedTask}
+            onDeletingTask={onDeletingTask}
           />
         ))}
       </>
@@ -54,6 +60,7 @@ const StatusCard = props => {
             eachTaskDetails={eachTask}
             key={eachTask.id}
             updatedTask={updatedTask}
+            onDeletingTask={onDeletingTask}
           />
         ))}
       </>
@@ -71,15 +78,16 @@ const StatusCard = props => {
             eachTaskDetails={eachTask}
             key={eachTask.id}
             updatedTask={updatedTask}
+            onDeletingTask={onDeletingTask}
           />
         ))}
       </>
     )
   }
 
-  const renderDefferedTask = () => {
+  const renderDeferredTask = () => {
     const defferedTaskList = newTaskList.filter(
-      eachTask => eachTask.status === 'Deffered',
+      eachTask => eachTask.status === 'Deferred',
     )
     return (
       <>
@@ -88,6 +96,7 @@ const StatusCard = props => {
             eachTaskDetails={eachTask}
             key={eachTask.id}
             updatedTask={updatedTask}
+            onDeletingTask={onDeletingTask}
           />
         ))}
       </>
@@ -104,8 +113,8 @@ const StatusCard = props => {
         return renderCompletedTask()
       case 'Deployed':
         return renderDeployedTask()
-      case 'Deffered':
-        return renderDefferedTask()
+      case 'Deferred':
+        return renderDeferredTask()
       default:
         return null
     }

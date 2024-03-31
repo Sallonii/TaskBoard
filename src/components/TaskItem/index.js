@@ -1,6 +1,7 @@
 import {Component} from 'react'
 
 import EditTask from '../EditTask'
+import DeleteItem from '../DeleteItem'
 
 import './index.css'
 
@@ -19,19 +20,16 @@ class TaskItem extends Component {
     updatedTask(editTask)
   }
 
+  taskDeletion = () => {
+    const {eachTaskDetails, onDeletingTask} = this.props
+    const {id} = eachTaskDetails
+    onDeletingTask(id)
+  }
+
   render() {
     const {eachTaskDetails} = this.state
 
-    const {
-      id,
-      title,
-      description,
-      assignee,
-      team,
-      priority,
-      status,
-      date,
-    } = eachTaskDetails
+    const {title, description, assignee, priority, status} = eachTaskDetails
     return (
       <div className="task-card">
         <div className="task-header">
@@ -42,10 +40,13 @@ class TaskItem extends Component {
         <p className="task-description">{description}</p>
         <div className="task-header">
           <p>{`@${assignee}`}</p>
-          <EditTask
-            eachTaskDetails={eachTaskDetails}
-            updateTask={this.updateTask}
-          />
+          <div>
+            <DeleteItem taskDeletion={this.taskDeletion} />
+            <EditTask
+              eachTaskDetails={eachTaskDetails}
+              updateTask={this.updateTask}
+            />
+          </div>
         </div>
         <div type="button" className="status">
           {status}

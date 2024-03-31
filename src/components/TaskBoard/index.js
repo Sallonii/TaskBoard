@@ -49,7 +49,7 @@ const statusTypeList = [
   },
   {
     id: 4,
-    status: 'Deffered',
+    status: 'Deferred',
   },
 ]
 
@@ -62,7 +62,7 @@ class TaskBoard extends Component {
     endDate: '',
   }
 
-  onChangingAsssigneeName = event => {
+  onChangingAssigneeName = event => {
     this.setState({assignee: event.target.value})
   }
 
@@ -82,7 +82,7 @@ class TaskBoard extends Component {
     <input
       placeholder="Assignee Name"
       className="input-element"
-      onChange={this.onChangingAsssigneeName}
+      onChange={this.onChangingAssigneeName}
     />
   )
 
@@ -105,7 +105,7 @@ class TaskBoard extends Component {
         Start Date:
       </label>
       <input
-        className="form-control date-input"
+        className="form-control date-input input-element"
         id="start-date"
         type="date"
         onChange={this.handleStartDateChange}
@@ -115,7 +115,7 @@ class TaskBoard extends Component {
         End Date:
       </label>
       <input
-        className="form-control date-input md-device-date"
+        className="form-control date-input md-device-date input-element"
         id="end-date"
         type="date"
         onChange={this.handleEndDateChange}
@@ -139,6 +139,14 @@ class TaskBoard extends Component {
     this.setState(prevState => ({
       newTaskList: [...prevState.newTaskList, newList],
     }))
+  }
+
+  deleteTask = id => {
+    const {newTaskList} = this.state
+
+    const listAfterDeleting = newTaskList.filter(eachTask => eachTask.id !== id)
+
+    this.setState({newTaskList: listAfterDeleting})
   }
 
   render() {
@@ -191,6 +199,7 @@ class TaskBoard extends Component {
                 key={eachTask.id}
                 newTaskList={filteredPriorityList}
                 taskUpdated={this.taskUpdated}
+                deleteTask={this.deleteTask}
               />
             ))}
           </div>

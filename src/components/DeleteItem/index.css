@@ -1,0 +1,8 @@
+.delete-popup-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3vh;
+  height: 3vh;
+  cursor: pointer;
+}
